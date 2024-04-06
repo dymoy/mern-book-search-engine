@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
 import { useMutation } from "@apollo/client";
@@ -13,8 +13,17 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+
   // use the useMutation hook to handle addUser
   const [addUser, { error }] = useMutation(ADD_USER);
+
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+    }
+  }, [errrpr]);
   
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -36,11 +45,6 @@ const SignupForm = () => {
         variables: { ...userFormData }
       });
       
-      // Check if addUser was successful 
-      if (error) {
-        throw new Error ("Failed to signup user.");
-      }
-
       console.log(data);
       Auth.login(data.addUser.token);
     } catch (err) {

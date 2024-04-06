@@ -78,9 +78,9 @@ const SearchBooks = () => {
 
     try {
       // Execute the SAVE_BOOK mutation 
-      const { data } = await saveBook({
+      await saveBook({
         variables: {
-          bookInput: bookToSave
+          bookInput: { ...bookToSave }
         }
       });
 
