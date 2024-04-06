@@ -1,3 +1,8 @@
+/**
+ * @file typeDefs.js 
+ * Define necessary Query and Mutation types. 
+ */
+
 const typeDefs =  `
     type User { 
         _id: ID
@@ -8,7 +13,6 @@ const typeDefs =  `
     }
 
     type Book { 
-        // book's ID value returned from Google's Book API
         bookId: ID
         authors: [String]
         description: String
@@ -28,7 +32,6 @@ const typeDefs =  `
         me: User
     }
 
-    // Create a BookInput input type to handle all the parameters to save a book 
     input BookInput {
         authors: [String]
         description: String
