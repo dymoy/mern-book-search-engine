@@ -3,20 +3,15 @@
  * Define the query and mutation functionality to work with the Mongoose models
  */
 
-const { User, Book } = require('../models');
+const { User } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        users: async () => {
-            return User.find().populate('books');
-        },
-        user: async (parent, { username }) => {
-            return User.findOne({ username }).populate('books');
-        },
         me: async (parent, args, context) => {
             if (context.user) {
-                return User.findOne({ _id: context.user._id }).populate('books');
+                const user = await User.findOne({ _id: context.user._id }).select('-_v -password').populate('books');
+                return user;
             } 
             throw AuthenticationError;
         }
@@ -43,9 +38,9 @@ const resolvers = {
             return { token, user };
         },
 
-        addUser: async (parent, { username, email, password }) => {
+        addUser: async (parent, { args }) => {
             // Create the user instance and return it with token 
-            await User.create({username, email, password});
+            const user = await User.create(args);
             const token = signToken(user);
             return { token, user };
         },
@@ -54,27 +49,27 @@ const resolvers = {
             // Check authentication infomation in context for the user 
             if (context.user) {
                 // Push the new book into the user's savedBooks field array
-                const res = await User.findByIdAndUpdate(
+                const user = await User.findByIdAndUpdate(
                     { _id: context.user._id },
                     { $push: { savedBooks: bookInput }},
                     { new: true }
                 );
-                return res;
+                return user;
             }
             // If the user is not authetnicated, throw AuthenticationError
             throw AuthenticationError;
         },
 
-        removeBook: async (parent, { bookId }) => {
+        removeBook: async (parent, { bookId }, context) => {
             // Check authentication information in context for the user
             if (context.user) {
                 // Pull the book with bookId from the user's savedBooks field array
-                const res = await User.findByIdAndUpdate(
+                const user = await User.findByIdAndUpdate(
                     { _id: context.user._id },
                     { $pull: { savedBooks: bookId }},
                     { new: true }
                 );
-                return res;
+                return user;
             }
             throw AuthenticationError;
         }

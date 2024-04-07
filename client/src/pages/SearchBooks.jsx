@@ -17,14 +17,12 @@ import { SAVE_BOOK } from "../utils/mutations";
 const SearchBooks = () => {
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
+
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
 
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
-
-  // Create mutation hook 
-  const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
@@ -55,6 +53,7 @@ const SearchBooks = () => {
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
         image: book.volumeInfo.imageLinks?.thumbnail || '',
+        link: book.volumeInfo.infoLink
       }));
 
       setSearchedBooks(bookData);
@@ -63,6 +62,9 @@ const SearchBooks = () => {
       console.error(err);
     }
   };
+
+  // Create mutation hook 
+  const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookId) => {
@@ -78,9 +80,9 @@ const SearchBooks = () => {
 
     try {
       // Execute the SAVE_BOOK mutation 
-      await saveBook({
+      const { data } = await saveBook({
         variables: {
-          bookInput: { ...bookToSave }
+          bookInput: bookToSave
         }
       });
 
