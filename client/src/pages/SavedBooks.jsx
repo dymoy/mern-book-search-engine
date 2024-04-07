@@ -16,12 +16,16 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
+  console.log(Auth.getProfile());
+
   // Use the useQuery() Hook to execute the GET_ME query on load and save it to a variable named userData.
   const { loading, data } = useQuery(GET_ME);
   // Use the useMutation() Hook to execute the REMOVE_BOOK mutation in the handleDeleteBook() function 
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
   const userData = data?.me || {};
+
+  console.log(userData);
   
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -51,7 +55,7 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (!userData.length) {
     return <h2>LOADING...</h2>;
   }
 

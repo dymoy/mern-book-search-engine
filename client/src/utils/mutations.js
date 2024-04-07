@@ -3,7 +3,8 @@
  * This holds the GraphQL queries that will execute the mutations set up using Apollo Server
  */
 
-import { gql } from '@apollo/client';
+// import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 /**
  * @query LOGIN_USER 

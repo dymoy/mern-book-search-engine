@@ -15,6 +15,7 @@ import { useMutation } from "@apollo/client";
 import { SAVE_BOOK } from "../utils/mutations";
 
 const SearchBooks = () => {
+  console.log(Auth.getProfile());
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
 

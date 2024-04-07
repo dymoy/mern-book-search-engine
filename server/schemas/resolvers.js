@@ -10,7 +10,7 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {
-                const user = await User.findOne({ _id: context.user._id }).select('-_v -password').populate('books');
+                const user = await User.findOne({ _id: context.user._id });
                 return user;
             } 
             throw AuthenticationError;
@@ -38,9 +38,17 @@ const resolvers = {
             return { token, user };
         },
 
-        addUser: async (parent, { args }) => {
+        addUser: async (parent, { username, email, password }) => {
             // Create the user instance and return it with token 
-            const user = await User.create(args);
+            const user = await User.create(
+                {
+                    username: username,
+                    email: email,
+                    password: password,
+                }
+            );
+
+            console.log(user);
             const token = signToken(user);
             return { token, user };
         },
