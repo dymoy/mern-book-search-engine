@@ -13,6 +13,7 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+
   // use the useMutation hook to handle addUser
   const [addUser, { error }] = useMutation(ADD_USER);
   
@@ -32,14 +33,10 @@ const SignupForm = () => {
     }
 
     try {
+      console.log(userFormData);
       const { data } = await addUser({
-        variables: { ...userFormData }
+        variables: { ...userFormData } 
       });
-      
-      // Check if addUser was successful 
-      if (error) {
-        throw new Error ("Failed to signup user.");
-      }
 
       console.log(data);
       Auth.login(data.addUser.token);

@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   // Use the useMutation hook to handle loginUser
-  const [loginUser, { error }] = useMutation(LOGIN_USER);
+  const [login, { error }] = useMutation(LOGIN_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -29,16 +29,11 @@ const LoginForm = () => {
     }
 
     try {
-      const { data } = await loginUser({
+      const { data } = await login({
         variables: { ...userFormData }
       });
       
-      // Check if loginuser was successful
-      if (error) {
-        throw new Error('Failed to login user.');
-      }
-
-      console.log(user);
+      console.log(data);
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);

@@ -19,7 +19,8 @@ const SavedBooks = () => {
   // Use the useQuery() Hook to execute the GET_ME query on load and save it to a variable named userData.
   const { loading, data } = useQuery(GET_ME);
   const userData = data?.me || {};
-  
+  console.log(userData);
+
   // Use the useMutation() Hook to execute the REMOVE_BOOK mutation in the handleDeleteBook() function 
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
@@ -51,13 +52,13 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 
   return (
     <>
-      <div fluid className="text-light bg-dark p-5">
+      <div fluid="true" className="text-light bg-dark p-5">
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>

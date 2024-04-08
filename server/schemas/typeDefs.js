@@ -2,18 +2,19 @@
  * @file typeDefs.js 
  * Define necessary Query and Mutation types. 
  */
+const {gql} = require('apollo-server-express');
 
-const typeDefs =  `
+const typeDefs = gql`
     type User { 
         _id: ID
-        username: String 
-        email: String
+        username: String!
+        email: String!
         bookCount: Int
-        books: [Book]!
+        savedBooks: [Book]
     }
 
     type Book { 
-        bookId: ID
+        bookId: ID!
         authors: [String]
         description: String
         title: String
@@ -27,16 +28,14 @@ const typeDefs =  `
     }
 
     type Query { 
-        users: [User]
-        user(username: String!): User
         me: User
     }
 
     input BookInput {
+        bookId: ID!
         authors: [String]
         description: String
-        title: String!
-        bookId: String!
+        title: String
         image: String
         link: String
     }
@@ -45,7 +44,7 @@ const typeDefs =  `
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         saveBook(bookInput: BookInput): User
-        removeBook(bookId: String!): User
+        removeBook(bookId: ID!): User
     }
 `;
 
