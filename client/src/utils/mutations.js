@@ -3,12 +3,12 @@
  * This holds the GraphQL queries that will execute the mutations set up using Apollo Server
  */
 
-// import { gql } from '@apollo/client';
 import { gql } from "@apollo/client";
 
 /**
- * @query LOGIN_USER 
+ * @mutation LOGIN_USER 
  * Executes the loginUser mutation set up using Apollo Server 
+ * Returns an object with a JWT and User
  */
 export const LOGIN_USER = gql`
     mutation login($email: String!, $password: String!) {
@@ -23,8 +23,9 @@ export const LOGIN_USER = gql`
 `;
 
 /**
- * @query ADD_USER 
+ * @mutation ADD_USER 
  * Executes the addUser mutation set up using Apollo Server
+ * Returns an object with a JWT and User
  */
 export const ADD_USER = gql`
     mutation addUser($username: String!, $email: String!, $password: String!) {
@@ -39,8 +40,9 @@ export const ADD_USER = gql`
 `;
 
 /**
- * @query SAVE_BOOK
+ * @mutation SAVE_BOOK
  * Executes the saveBook mutation set up using Apollo Server
+ * Returns a User
  */
 export const SAVE_BOOK = gql`
     mutation saveBook($bookInput: BookInput!) {
@@ -62,8 +64,9 @@ export const SAVE_BOOK = gql`
 `;
 
 /**
- * @query REMOVE_BOOK
+ * @mutation REMOVE_BOOK
  * Executes the removeBook mutation set up using Apollo Server
+ * Returns a User 
  */
 export const REMOVE_BOOK = gql`
     mutation removeBook($bookId: ID!) {

@@ -1,4 +1,5 @@
 import React from "react";
+import { removeBookId } from '../utils/localStorage';
 
 import {
   Container,
@@ -11,13 +12,13 @@ import {
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
 import { REMOVE_BOOK } from "../utils/mutations";
-
 import Auth from '../utils/auth';
-import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-  // Use the useQuery() Hook to execute the GET_ME query on load and save it to a variable named userData.
+  // Use the useQuery() Hook to execute the GET_ME query on load and save it to a variable named userData
   const { loading, data } = useQuery(GET_ME);
+
+  // Check that the GET_ME query was successful and data for `me` was retrieved
   const userData = data?.me || {};
 
   // Use the useMutation() Hook to execute the REMOVE_BOOK mutation in the handleDeleteBook() function 
@@ -32,7 +33,7 @@ const SavedBooks = () => {
     }
 
     try {
-      // Use mutation to remove book from the user's saved books
+      // Use the removeBook mutation to remove book from the user's saved books
       const { data } = await removeBook({
         variables: { bookId }
       });

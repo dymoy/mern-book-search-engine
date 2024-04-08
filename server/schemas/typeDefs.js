@@ -2,7 +2,7 @@
  * @file typeDefs.js 
  * Define necessary Query and Mutation types. 
  */
-const {gql} = require('apollo-server-express');
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
     type User { 
