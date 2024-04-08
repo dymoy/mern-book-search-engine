@@ -32,10 +32,9 @@ const SavedBooks = () => {
     }
 
     try {
+      // Use mutation to remove book from the user's saved books
       const { data } = await removeBook({
-        variables: {
-          bookId
-        }
+        variables: { bookId }
       });
 
       // Check if removeBook was successful 

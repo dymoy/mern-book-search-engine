@@ -48,6 +48,7 @@ export const SAVE_BOOK = gql`
             _id
             username
             email 
+            bookCount
             savedBooks {
                 bookId
                 authors
@@ -65,20 +66,19 @@ export const SAVE_BOOK = gql`
  * Executes the removeBook mutation set up using Apollo Server
  */
 export const REMOVE_BOOK = gql`
-    mutation removeBook($bookId: String!) {
-        remove_book(bookId: $bookId) {
-            user {
-                _id
-                username
-                email
-                savedBooks {
-                    bookId
-                    authors
-                    description
-                    title
-                    image
-                    link
-                }
+    mutation removeBook($bookId: ID!) {
+        removeBook(bookId: $bookId) {
+            _id
+            username
+            email
+            bookCount
+            savedBooks {
+                bookId
+                authors
+                description
+                title
+                image
+                link
             }
         }
     }
