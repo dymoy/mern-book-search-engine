@@ -48,7 +48,6 @@ const resolvers = {
                 }
             );
 
-            console.log(user);
             const token = signToken(user);
             return { token, user };
         },
@@ -68,13 +67,13 @@ const resolvers = {
             throw AuthenticationError;
         },
 
-        removeBook: async (parent, { bookId }, context) => {
+        removeBook: async (parent, args, context) => {
             // Check authentication information in context for the user
             if (context.user) {
                 // Pull the book with bookId from the user's savedBooks field array
                 const user = await User.findByIdAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { savedBooks: bookId }},
+                    { $pull: { savedBooks: args }},
                     { new: true }
                 );
                 return user;
