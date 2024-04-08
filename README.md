@@ -10,7 +10,7 @@
 
 ## Description 
 
-Welcome to the book search engine! This web tool allow avid readers to search for and save books that they're interested in - whether they have already read the book or looking to pick it up on their next stop to the bookstore. 
+Welcome to the book search engine! This web tool allows avid readers to search for and save books that they're interested in - whether they have already read the book or are looking to pick it up on their next stop to the bookstore. 
 
 When searching for a book, users will be presented with information for each book including the title, list of authors, description, image, and a link to view more details on the Google Books website. Please refer to the [usage](#usage) section of this README for more information regarding the features of the web tool.  
 
