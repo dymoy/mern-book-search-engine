@@ -14,7 +14,7 @@ const server = new ApolloServer({
 	resolvers,
 });
 
-// Create a new instance of an Apollo server with the GraphQL schema
+// Create a new instance of an Apollo Server with the GraphQL schema
 const startApolloServer = async () => {
 	await server.start();
 
@@ -26,8 +26,10 @@ const startApolloServer = async () => {
 	}));
 
 	if (process.env.NODE_ENV === 'production') {
+		// In production, when we no longer need to use the vite dev server, we serve the React app that is in the dist/ directory 
 		app.use(express.static(path.join(__dirname, '../client/dist')));
 
+		// Set up a wildcard route on our server since React application will handle its own routing 
 		app.get('*', (req, res) => {
 			res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 		});

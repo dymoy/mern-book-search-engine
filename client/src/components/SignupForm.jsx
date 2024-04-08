@@ -3,7 +3,6 @@ import { Form, Button, Alert } from 'react-bootstrap';
 
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from '../utils/mutations';
-
 import Auth from '../utils/auth';
 
 const SignupForm = () => {
@@ -33,6 +32,7 @@ const SignupForm = () => {
     }
 
     try {
+      // use the addUser mutation to handle addUser using userFormData as a variable
       const { data } = await addUser({
         variables: { ...userFormData } 
       });
