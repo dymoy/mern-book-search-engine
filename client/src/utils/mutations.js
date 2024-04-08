@@ -43,20 +43,18 @@ export const ADD_USER = gql`
  * Executes the saveBook mutation set up using Apollo Server
  */
 export const SAVE_BOOK = gql`
-    mutation saveBook($bookInput: BookInput) {
+    mutation saveBook($bookInput: BookInput!) {
         saveBook(bookInput: $bookInput) {
-            user {
-                _id
-                username
-                email 
-                savedBooks {
-                    bookId
-                    authors
-                    description
-                    title
-                    image
-                    link
-                }
+            _id
+            username
+            email 
+            savedBooks {
+                bookId
+                authors
+                description
+                title
+                image
+                link
             }
         }
     }
